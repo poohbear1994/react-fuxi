@@ -1,13 +1,10 @@
 import React from 'react'
-import List from './pages/manage/List'
+// 引入路由供应组件
+import { RouterProvider } from 'react-router-dom'
+import router from './router'
 
 function App() {
-	return (
-		<div className="App">
-			<h1 style={{ background: 'yellow' }}>问卷 FE</h1>
-			<List></List>
-		</div>
-	)
+	return <RouterProvider router={router}></RouterProvider>
 }
 
 export default App

@@ -63,7 +63,7 @@ const List: FC = () => {
 					)
 				})}
 			</div>
-			<div className={styles.footer}>底部</div>
+			<div className={styles.footer}>列表页面底部</div>
 		</>
 	)
 }

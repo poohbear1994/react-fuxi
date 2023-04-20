@@ -10,11 +10,11 @@ const ManageLayout: FC = () => {
 					<p>ManageLayout left</p>
 					<button>创建问卷</button>
 					<br />
-					<a>我的问卷</a>
+					<a href="#">我的问卷</a>
 					<br />
-					<a>星标问卷</a>
+					<a href="#">星标问卷</a>
 					<br />
-					<a>回收站</a>
+					<a href="#">回收站</a>
 				</div>
 				<div className={styles.right}>
 					<Outlet></Outlet>
