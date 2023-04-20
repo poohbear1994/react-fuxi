@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import QuestionCard from '../../components/QuestionCard'
 import styles from './List.module.scss'
 
@@ -38,6 +39,9 @@ const rawQuestionList = [
 ]
 
 const List: FC = () => {
+	const [searchParams] = useSearchParams()
+	console.dir(searchParams.get('a'))
+
 	const [questionList, setQuestionList] = useState(rawQuestionList)
 
 	return (
