@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { Typography } from 'antd'
 import QuestionCard from '../../components/QuestionCard'
 import styles from './common.module.scss'
 
@@ -28,15 +29,9 @@ const rawQuestionList = [
 		answerCount: 2,
 		createdAt: '3月12日 13:23',
 	},
-	{
-		_id: crypto.randomUUID(),
-		title: '问卷4',
-		isPublished: true,
-		isStart: true,
-		answerCount: 8,
-		createdAt: '3月13日 13:23',
-	},
 ]
+
+const { Title } = Typography
 
 const List: FC = () => {
 	const [searchParams] = useSearchParams()
@@ -48,7 +43,7 @@ const List: FC = () => {
 		<>
 			<div className={styles.header}>
 				<div className={styles.left}>
-					<h3>我的问卷</h3>
+					<Title level={3}>我的问卷</Title>
 				</div>
 				<div className={styles.right}>（搜索）</div>
 			</div>
