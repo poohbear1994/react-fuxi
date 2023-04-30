@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react'
 import { useTitle } from 'ahooks'
-import { Typography, Empty, Table, Tag } from 'antd'
+import { Typography, Empty, Table, Tag, Button, Space, Modal } from 'antd'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 import styles from './common.module.scss'
 
 const rawQuestionList = [
@@ -31,11 +32,26 @@ const rawQuestionList = [
 ]
 
 const { Title } = Typography
+const { confirm } = Modal
 
 const Trash: FC = () => {
 	useTitle('回收站')
 
 	const [questionList, setQuestionList] = useState(rawQuestionList)
+
+	const [selectedIds, setSelectedIds] = useState<React.Key[]>([])
+
+	const del = () => {
+		confirm({
+			title: '确定删除选中问卷？',
+			icon: <ExclamationCircleOutlined />,
+			content: '删除以后无法找回',
+			onOk() {
+				console.info(selectedIds)
+				alert(`删除${JSON.stringify(selectedIds)}`)
+			},
+		})
+	}
 
 	const tableColumns = [
 		{
@@ -63,6 +79,38 @@ const Trash: FC = () => {
 		},
 	]
 
+	// 将JSX定义为变量
+	const TableElem = (
+		<>
+			<div
+				style={{
+					marginBottom: '16px',
+				}}
+			>
+				<Space>
+					<Button type="primary" disabled={selectedIds.length === 0}>
+						恢复
+					</Button>
+					<Button danger disabled={selectedIds.length === 0} onClick={del}>
+						删除
+					</Button>
+				</Space>
+			</div>
+			<Table
+				dataSource={questionList}
+				columns={tableColumns}
+				pagination={false}
+				rowKey={q => q._id}
+				rowSelection={{
+					type: 'checkbox',
+					onChange(selectedRowKeys) {
+						setSelectedIds(selectedRowKeys)
+					},
+				}}
+			/>
+		</>
+	)
+
 	return (
 		<>
 			<div className={styles.header}>
@@ -72,11 +120,7 @@ const Trash: FC = () => {
 				<div className={styles.right}>（搜索）</div>
 			</div>
 			<div className={styles.content}>
-				{questionList.length === 0 ? (
-					<Empty description="暂无数据" />
-				) : (
-					<Table dataSource={questionList} columns={tableColumns} pagination={false} />
-				)}
+				{questionList.length === 0 ? <Empty description="暂无数据" /> : TableElem}
 			</div>
 			<div className={styles.footer}>分页</div>
 		</>
