@@ -13,22 +13,22 @@ const rawQuestionList = [
 		answerCount: 5,
 		createdAt: '3月10日 13:23',
 	},
-	// {
-	// 	_id: crypto.randomUUID(),
-	// 	title: '问卷2',
-	// 	isPublished: true,
-	// 	isStart: true,
-	// 	answerCount: 999,
-	// 	createdAt: '3月11日 13:23',
-	// },
-	// {
-	// 	_id: crypto.randomUUID(),
-	// 	title: '问卷3',
-	// 	isPublished: false,
-	// 	isStart: true,
-	// 	answerCount: 2,
-	// 	createdAt: '3月12日 13:23',
-	// },
+	{
+		_id: crypto.randomUUID(),
+		title: '问卷2',
+		isPublished: true,
+		isStart: true,
+		answerCount: 999,
+		createdAt: '3月11日 13:23',
+	},
+	{
+		_id: crypto.randomUUID(),
+		title: '问卷3',
+		isPublished: false,
+		isStart: true,
+		answerCount: 2,
+		createdAt: '3月12日 13:23',
+	},
 ]
 
 const { Title } = Typography
@@ -45,7 +45,7 @@ const Star: FC = () => {
 				<div className={styles.right}>（搜索）</div>
 			</div>
 			<div className={styles.content}>
-				{questionList.length === 1 ? (
+				{questionList.length === 0 ? (
 					<Empty description="暂无数据" />
 				) : (
 					questionList.map(q => {
