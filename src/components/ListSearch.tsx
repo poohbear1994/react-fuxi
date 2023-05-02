@@ -28,7 +28,6 @@ const ListSearch: FC = () => {
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value)
-		console.info(value)
 	}
 
 	return (

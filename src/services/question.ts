@@ -20,11 +20,17 @@ export const createQuestionService = async (): Promise<ResDataType> => {
 	return data
 }
 
+type SearchOption = {
+	keyword: string
+}
+
 /**
  * @description: 查询问卷列表
  */
-export const getQuestionListService = async (): Promise<ResDataType> => {
+export const getQuestionListService = async (
+	opt: Partial<SearchOption> = {}
+): Promise<ResDataType> => {
 	const url = '/api/question'
-	const data = (await axios.get(url)) as ResDataType
+	const data = (await axios.get(url, { params: opt })) as ResDataType
 	return data
 }
