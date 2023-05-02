@@ -4,9 +4,16 @@ import { MANAGE_INDEX_PATHNAME } from '../router/index'
 import { useNavigate } from 'react-router-dom'
 import styles from './Home.module.scss'
 
+// import axios from 'axios'
+// import '../__mock__/index'
+
 const { Title, Paragraph } = Typography
 
 const Home: FC = () => {
+	// useEffect(() => {
+	// 	axios.get('/api/test').then(res => console.log(res.data))
+	// }, [])
+
 	const nav = useNavigate()
 
 	return (
