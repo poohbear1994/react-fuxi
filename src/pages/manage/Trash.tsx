@@ -1,36 +1,10 @@
 import React, { FC, useState } from 'react'
 import { useTitle } from 'ahooks'
-import { Typography, Empty, Table, Tag, Button, Space, Modal } from 'antd'
+import { Typography, Empty, Table, Tag, Button, Space, Modal, Spin } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import ListSearch from '../../components/ListSearch'
 import styles from './common.module.scss'
-
-const rawQuestionList = [
-	{
-		_id: crypto.randomUUID(),
-		title: '问卷1',
-		isPublished: false,
-		isStart: true,
-		answerCount: 5,
-		createdAt: '3月10日 13:23',
-	},
-	{
-		_id: crypto.randomUUID(),
-		title: '问卷2',
-		isPublished: true,
-		isStart: true,
-		answerCount: 999,
-		createdAt: '3月11日 13:23',
-	},
-	{
-		_id: crypto.randomUUID(),
-		title: '问卷3',
-		isPublished: false,
-		isStart: true,
-		answerCount: 2,
-		createdAt: '3月12日 13:23',
-	},
-]
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 
 const { Title } = Typography
 const { confirm } = Modal
@@ -38,7 +12,8 @@ const { confirm } = Modal
 const Trash: FC = () => {
 	useTitle('回收站')
 
-	const [questionList, setQuestionList] = useState(rawQuestionList)
+	const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
+	const { list = [], total = 0 } = data
 
 	const [selectedIds, setSelectedIds] = useState<React.Key[]>([])
 
@@ -98,7 +73,7 @@ const Trash: FC = () => {
 				</Space>
 			</div>
 			<Table
-				dataSource={questionList}
+				dataSource={list}
 				columns={tableColumns}
 				pagination={false}
 				rowKey={q => q._id}
@@ -123,7 +98,13 @@ const Trash: FC = () => {
 				</div>
 			</div>
 			<div className={styles.content}>
-				{questionList.length === 0 ? <Empty description="暂无数据" /> : TableElem}
+				{loading && (
+					<div style={{ textAlign: 'center' }}>
+						<Spin />
+					</div>
+				)}
+				{!loading && list.length === 0 && <Empty description="暂无数据" />}
+				{list.length > 0 && TableElem}
 			</div>
 			<div className={styles.footer}>分页</div>
 		</>

@@ -22,6 +22,8 @@ export const createQuestionService = async (): Promise<ResDataType> => {
 
 type SearchOption = {
 	keyword: string
+	isStar: boolean
+	isDeleted: boolean
 }
 
 /**

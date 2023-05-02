@@ -3,7 +3,14 @@ import { getQuestionListService } from '../services/question'
 import { useSearchParams } from 'react-router-dom'
 import { LIST_SEARCH_PARAM_KEY } from '../constant/index'
 
-const useLoadQuestionData = () => {
+type OptionType = {
+	isStar: boolean
+	isDeleted: boolean
+}
+
+const useLoadQuestionData = (opt: Partial<OptionType> = {}) => {
+	const { isStar, isDeleted } = opt
+
 	// 获取当前url的查询参数
 	const [searchParams] = useSearchParams()
 
@@ -13,6 +20,8 @@ const useLoadQuestionData = () => {
 			const keyword = searchParams.get(LIST_SEARCH_PARAM_KEY) || ''
 			const data = await getQuestionListService({
 				keyword,
+				isStar,
+				isDeleted,
 			})
 			return data
 		},
