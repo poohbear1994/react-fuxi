@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 
 const Edit: FC = () => {
-	const { loading, questionData } = useLoadQuestionData()
+	const { loading, data: questionData } = useLoadQuestionData()
 	return (
 		<div>
 			<div>Edit Page</div>

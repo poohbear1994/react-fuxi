@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 
 const Stat: FC = () => {
-	const { loading, questionData } = useLoadQuestionData()
+	const { loading, data: questionData } = useLoadQuestionData()
 
 	return (
 		<div>
