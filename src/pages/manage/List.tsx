@@ -1,43 +1,18 @@
-import React, { FC, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { Typography } from 'antd'
+import React, { FC } from 'react'
+import { Typography, Spin } from 'antd'
+import { useRequest, useTitle } from 'ahooks'
 import QuestionCard from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
 import styles from './common.module.scss'
-
-const rawQuestionList = [
-	{
-		_id: crypto.randomUUID(),
-		title: '问卷1',
-		isPublished: false,
-		isStart: false,
-		answerCount: 5,
-		createdAt: '3月10日 13:23',
-	},
-	{
-		_id: crypto.randomUUID(),
-		title: '问卷2',
-		isPublished: true,
-		isStart: true,
-		answerCount: 999,
-		createdAt: '3月11日 13:23',
-	},
-	{
-		_id: crypto.randomUUID(),
-		title: '问卷3',
-		isPublished: false,
-		isStart: false,
-		answerCount: 2,
-		createdAt: '3月12日 13:23',
-	},
-]
+import { getQuestionListService } from '../../services/question'
 
 const { Title } = Typography
 
 const List: FC = () => {
-	const [searchParams] = useSearchParams()
+	useTitle('问卷-列表页')
 
-	const [questionList, setQuestionList] = useState(rawQuestionList)
+	const { data: questionList = {}, loading } = useRequest(getQuestionListService)
+	const { list = [] } = questionList
 
 	return (
 		<>
@@ -50,8 +25,14 @@ const List: FC = () => {
 				</div>
 			</div>
 			<div className={styles.content}>
-				{questionList.length > 0 &&
-					questionList.map(q => {
+				{loading && (
+					<div style={{ textAlign: 'center' }}>
+						<Spin />
+					</div>
+				)}
+				{!loading &&
+					list.length > 0 &&
+					list.map((q: any) => {
 						const { _id, title, isPublished, isStart, answerCount, createdAt } = q
 						return (
 							<QuestionCard
