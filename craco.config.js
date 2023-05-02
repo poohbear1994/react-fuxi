@@ -1,0 +1,8 @@
+/* eslint-disable */
+module.exports = {
+	devServer: {
+		proxy: {
+			'/api': 'http://localhost:3001',
+		},
+	},
+}
