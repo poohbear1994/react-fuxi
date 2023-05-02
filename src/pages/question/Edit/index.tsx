@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import type { FC } from 'react'
-import { getQuestionService } from '../../../services/question'
-
-import { useParams } from 'react-router-dom'
+import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 
 const Edit: FC = () => {
-	const { id = '' } = useParams()
-
-	useEffect(() => {
-		const fn = async () => {
-			const data = await getQuestionService(id)
-			console.table(data)
-		}
-		fn()
-	}, [])
-
-	return <p>Edit {id}</p>
+	const { loading, questionData } = useLoadQuestionData()
+	return (
+		<div>
+			<div>Edit Page</div>
+			{loading ? <p>loading</p> : <p>{JSON.stringify(questionData)}</p>}
+		</div>
+	)
 }
 
 export default Edit
