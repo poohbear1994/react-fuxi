@@ -24,6 +24,8 @@ type SearchOption = {
 	keyword: string
 	isStar: boolean
 	isDeleted: boolean
+	pageSize: number
+	page: number
 }
 
 /**
