@@ -5,6 +5,7 @@ import QuestionCard from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
 import styles from './common.module.scss'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
+import ListPage from '../../components/ListPage'
 
 const { Title } = Typography
 const Star: FC = () => {
@@ -49,7 +50,9 @@ const Star: FC = () => {
 					})
 				)}
 			</div>
-			<div className={styles.footer}>分页</div>
+			<div className={styles.footer}>
+				<ListPage total={total} />
+			</div>
 		</>
 	)
 }
