@@ -3,9 +3,10 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useRequest, useTitle } from 'ahooks'
 import { UserOutlined } from '@ant-design/icons'
 import { Form, Input, Space, Typography, Button, Checkbox, message } from 'antd'
+import styles from './Login.module.scss'
 import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME } from '../router/index'
 import { loginService } from '../services/user'
-import styles from './Login.module.scss'
+import { setToken } from '../utils/user-token'
 
 const { Title } = Typography
 
@@ -40,7 +41,9 @@ const Login: FC = () => {
 		},
 		{
 			manual: true,
-			onSuccess() {
+			onSuccess(result) {
+				const { token = '' } = result
+				setToken(token)
 				message.success('登录成功')
 				nav(MANAGE_INDEX_PATHNAME)
 			},
