@@ -7,7 +7,7 @@ import ListSearch from '../../components/ListSearch'
 import styles from './common.module.scss'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import ListPage from '../../components/ListPage'
-import { updateQuestionService } from '../../services/question'
+import { updateQuestionService, deleteQuestionsService } from '../../services/question'
 
 const { Title } = Typography
 const { confirm } = Modal
@@ -18,7 +18,7 @@ const Trash: FC = () => {
 	const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true })
 	const { list = [], total = 0 } = data
 
-	const [selectedIds, setSelectedIds] = useState<React.Key[]>([])
+	const [selectedIds, setSelectedIds] = useState<Array<string>>([])
 
 	const { run: recover, loading: recoverLoading } = useRequest(
 		async () => {
@@ -32,7 +32,23 @@ const Trash: FC = () => {
 			debounceWait: 500,
 			onSuccess() {
 				message.success('恢复成功')
+				setSelectedIds([])
 				refresh() // 手动刷新列表
+			},
+		}
+	)
+
+	const { run: deleteQuestion, loading: deleteLoading } = useRequest(
+		async () => {
+			const data = await deleteQuestionsService(selectedIds)
+			return data
+		},
+		{
+			manual: true,
+			onSuccess() {
+				message.success('彻底删除成功')
+				setSelectedIds([])
+				refresh()
 			},
 		}
 	)
@@ -43,7 +59,7 @@ const Trash: FC = () => {
 			icon: <ExclamationCircleOutlined />,
 			content: '删除以后无法找回',
 			onOk() {
-				alert(`删除${JSON.stringify(selectedIds)}`)
+				deleteQuestion()
 			},
 		})
 	}
@@ -91,7 +107,7 @@ const Trash: FC = () => {
 					>
 						恢复
 					</Button>
-					<Button danger disabled={selectedIds.length === 0} onClick={del}>
+					<Button danger disabled={selectedIds.length === 0} loading={deleteLoading} onClick={del}>
 						彻底删除
 					</Button>
 				</Space>
@@ -104,7 +120,7 @@ const Trash: FC = () => {
 				rowSelection={{
 					type: 'checkbox',
 					onChange(selectedRowKeys) {
-						setSelectedIds(selectedRowKeys)
+						setSelectedIds(selectedRowKeys as Array<string>)
 					},
 				}}
 			/>
