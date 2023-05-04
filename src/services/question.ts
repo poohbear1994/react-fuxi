@@ -38,3 +38,15 @@ export const getQuestionListService = async (
 	const data = (await axios.get(url, { params: opt })) as ResDataType
 	return data
 }
+
+/**
+ * @description: 更新问卷
+ */
+export const updateQuestionService = async (
+	id: string,
+	opt: { [key: string]: any }
+): Promise<ResDataType> => {
+	const url = `/api/question/${id}`
+	const data = (await axios.patch(url, opt)) as ResDataType
+	return data
+}
