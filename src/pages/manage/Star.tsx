@@ -35,7 +35,7 @@ const Star: FC = () => {
 					<Empty description="暂无数据" />
 				) : (
 					list.map((q: any) => {
-						const { _id, title, isPublished, isStart, answerCount, createdAt } = q
+						const { _id, title, isPublished, isStart, answerCount, createdAt, isDeleted } = q
 						return (
 							<QuestionCard
 								_id={_id}
@@ -45,6 +45,7 @@ const Star: FC = () => {
 								isStar={isStart}
 								answerCount={answerCount}
 								createdAt={createdAt}
+								isDeleted={isDeleted}
 							></QuestionCard>
 						)
 					})

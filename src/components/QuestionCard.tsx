@@ -17,10 +17,11 @@ import { updateQuestionService, duplicateQuestionService } from '../services/que
 type PropsType = {
 	_id: string
 	title: string
-	isPublished: boolean
-	isStar: boolean
 	answerCount: number
 	createdAt: string
+	isStar: boolean
+	isPublished: boolean
+	isDeleted: boolean
 }
 
 const { confirm } = Modal
@@ -59,15 +60,31 @@ const QuestionCard: FC<PropsType> = props => {
 		}
 	)
 
+	const [isDeletedState, setIsDeletedState] = useState(false)
+
+	const { run: deleteQuestion, loading: deleteLoading } = useRequest(
+		async () => {
+			const data = await updateQuestionService(_id, { isDeleted: true })
+			return data
+		},
+		{
+			manual: true,
+			onSuccess(result) {
+				message.success('删除成功')
+				setIsDeletedState(true)
+			},
+		}
+	)
+
 	const del = () => {
 		confirm({
 			title: '确定删除该问卷？',
 			icon: <ExceptionOutlined />,
-			onOk: () => {
-				message.success('删除成功')
-			},
+			onOk: deleteQuestion,
 		})
 	}
+
+	if (isDeletedState) return null
 
 	return (
 		<div className={styles.container}>
@@ -132,7 +149,13 @@ const QuestionCard: FC<PropsType> = props => {
 								复制
 							</Button>
 						</Popconfirm>
-						<Button type="text" size="small" icon={<DeleteOutlined />} onClick={del}>
+						<Button
+							type="text"
+							size="small"
+							icon={<DeleteOutlined />}
+							loading={deleteLoading}
+							onClick={del}
+						>
 							删除
 						</Button>
 					</Space>
