@@ -50,3 +50,13 @@ export const updateQuestionService = async (
 	const data = (await axios.patch(url, opt)) as ResDataType
 	return data
 }
+
+/**
+ * @description: 复制问卷
+ * @param {string} id
+ */
+export const duplicateQuestionService = async (id: string): Promise<ResDataType> => {
+	const url = `/api/question/duplicate/${id}`
+	const data = (await axios.post(url)) as ResDataType
+	return data
+}
