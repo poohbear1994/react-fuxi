@@ -20,7 +20,7 @@ const useLoadQuestionData = (opt: Partial<OptionType> = {}) => {
 	const [searchParams] = useSearchParams()
 
 	// 发起网络请求
-	const { data, loading, error } = useRequest(
+	const { data, loading, error, refresh } = useRequest(
 		async () => {
 			const keyword = searchParams.get(LIST_SEARCH_PARAM_KEY) || ''
 			const page = parseInt(searchParams.get(LIST_PAGE_PARAM_KEY) || '') || 1
@@ -46,6 +46,7 @@ const useLoadQuestionData = (opt: Partial<OptionType> = {}) => {
 		data,
 		loading,
 		error,
+		refresh,
 	}
 }
 
