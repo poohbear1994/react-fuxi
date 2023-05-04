@@ -1,14 +1,36 @@
-import React, { FC } from 'react'
-import { Typography, Space, Form, Input, Button } from 'antd'
+import React from 'react'
+import type { FC } from 'react'
+import { useRequest, useTitle } from 'ahooks'
+import { Typography, Space, Form, Input, Button, message } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
-import { LOGIN_PATHNAME } from '../router/index'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from './Register.module.scss'
+import { LOGIN_PATHNAME } from '../router/index'
+import { registerService } from '../services/user'
 
 const { Title } = Typography
+
 const Register: FC = () => {
+	useTitle('注册')
+	const nav = useNavigate()
+
+	const { run: register, loading: registerLoading } = useRequest(
+		async (values: any) => {
+			const { username, password, nickname } = values
+			const data = await registerService(username, password, nickname)
+			return data
+		},
+		{
+			manual: true,
+			onSuccess() {
+				message.success('注册成功')
+				nav(LOGIN_PATHNAME)
+			},
+		}
+	)
+
 	const onFinish = (values: any) => {
-		console.table(values)
+		register(values)
 	}
 
 	return (
@@ -65,7 +87,7 @@ const Register: FC = () => {
 					</Form.Item>
 					<Form.Item wrapperCol={{ offset: 6, span: 16 }}>
 						<Space>
-							<Button type="primary" htmlType="submit">
+							<Button type="primary" htmlType="submit" loading={registerLoading}>
 								注册
 							</Button>
 							<Link to={LOGIN_PATHNAME}>已有账户，登录</Link>

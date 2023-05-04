@@ -1,8 +1,10 @@
 import React, { FC, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { useRequest, useTitle } from 'ahooks'
 import { UserOutlined } from '@ant-design/icons'
-import { Form, Input, Space, Typography, Button, Checkbox } from 'antd'
-import { REGISTER_PATHNAME } from '../router/index'
+import { Form, Input, Space, Typography, Button, Checkbox, message } from 'antd'
+import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME } from '../router/index'
+import { loginService } from '../services/user'
 import styles from './Login.module.scss'
 
 const { Title } = Typography
@@ -28,6 +30,23 @@ const getUserInfoFromStorage = () => {
 }
 
 const Login: FC = () => {
+	useTitle('登录')
+	const nav = useNavigate()
+
+	const { run: login, loading: loginLoading } = useRequest(
+		async (username: string, password: string) => {
+			const data = await loginService(username, password)
+			return data
+		},
+		{
+			manual: true,
+			onSuccess() {
+				message.success('登录成功')
+				nav(MANAGE_INDEX_PATHNAME)
+			},
+		}
+	)
+
 	const [form] = Form.useForm() // Form组件提供的 第三方hook
 
 	useEffect(() => {
@@ -37,6 +56,7 @@ const Login: FC = () => {
 
 	const onFinish = (values: any) => {
 		const { remember, username, password } = values
+		login(username, password)
 		if (remember) {
 			rememberUser(username, password)
 		} else {
@@ -80,7 +100,7 @@ const Login: FC = () => {
 				</Form.Item>
 				<Form.Item wrapperCol={{ offset: 6, span: 16 }}>
 					<Space>
-						<Button type="primary" htmlType="submit">
+						<Button type="primary" htmlType="submit" loading={loginLoading}>
 							登录
 						</Button>
 						<Link to={REGISTER_PATHNAME}>注册新用户</Link>
