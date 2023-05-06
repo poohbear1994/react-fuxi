@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './userReducer'
 import type { UserStateType } from './userReducer'
 
-export type StoreType = {
+export type StateType = {
 	user: UserStateType
 }
 
