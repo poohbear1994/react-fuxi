@@ -4,4 +4,8 @@ export type QuestionTitlePropsType = {
 	isCenter?: boolean
 }
 
-export const QuestionTitleDefaultProps: QuestionTitlePropsType = {}
+export const QuestionTitleDefaultProps: QuestionTitlePropsType = {
+	text: '一行标题',
+	level: 1,
+	isCenter: false,
+}
