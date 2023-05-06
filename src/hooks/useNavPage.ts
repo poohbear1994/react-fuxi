@@ -8,6 +8,10 @@ import {
 	LOGIN_PATHNAME,
 } from '../router/index'
 
+/**
+ * @description: 当路由，用户信息改变时，触发此钩子，引导系统前往合法页面
+ * @param {boolean} waitingUserData 是否正在等待用户信息请求结果
+ */
 const useNavPage = (waitingUserData: boolean) => {
 	const { pathname } = useLocation()
 	const { username } = useGetUserInfo()

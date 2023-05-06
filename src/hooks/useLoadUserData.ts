@@ -5,6 +5,9 @@ import useGetUserInfo from './useGetUserInfo'
 import { loginReducer } from '../store/userReducer'
 import { getUserInfoService } from '../services/user'
 
+/**
+ * @description: 当username发生改变时，触发次钩子，发起请求获取用户信息
+ */
 const useLoadUserData = () => {
 	const [waitingUserData, setWaitngUserData] = useState(true)
 	const dispatch = useDispatch()
