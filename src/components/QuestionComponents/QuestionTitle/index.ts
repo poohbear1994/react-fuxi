@@ -9,7 +9,7 @@ export * from './interface'
 
 export default {
 	title: '标题',
-	type: 'questionInput', // 要和后端统一好
+	type: 'questionTitle', // 要和后端统一好
 	Component,
 	defaultProps: QuestionTitleDefaultProps,
 }
