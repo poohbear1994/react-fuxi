@@ -1,16 +1,33 @@
 import React from 'react'
-import type { FC } from 'react'
+import type { FC, MouseEvent } from 'react'
 import { Typography } from 'antd'
+import { useDispatch } from 'react-redux'
+import { nanoid } from 'nanoid'
 import { componentConfigGroup } from '../../../components/QuestionComponents'
 import type { ComponentConfigType } from '../../../components/QuestionComponents'
 import styles from './ComponentLib.module.scss'
+import { addComponent } from '../../../store/componentsReducer'
+import type { ComponentInfoType } from '../../../store/componentsReducer'
 
 const { Title } = Typography
 
 const genComponent = (c: ComponentConfigType) => {
+	const dispatch = useDispatch()
 	const { Component, title, type, defaultProps } = c
+
+	const handleClick = (event: MouseEvent) => {
+		event.stopPropagation()
+		const component: ComponentInfoType = {
+			fe_id: nanoid(5),
+			title,
+			props: defaultProps,
+			type,
+		}
+		dispatch(addComponent(component))
+	}
+
 	return (
-		<div className={styles.wrapper}>
+		<div key={type} className={styles.wrapper} onClick={handleClick}>
 			<div className={styles.component}>
 				<Component key={type} {...defaultProps} />
 			</div>
