@@ -23,3 +23,17 @@ const componentConfigList: Array<ComponentConfigType> = [QuestionInputConfig, Qu
 export const getComponentConfigByType = (type: string) => {
 	return componentConfigList.find(c => c.type === type)
 }
+
+// 组件分组配置
+export const componentConfigGroup = [
+	{
+		groupId: 'textGroup',
+		groupName: '文本显示',
+		components: [QuestionTitleConfig],
+	},
+	{
+		groupId: 'inputGroup',
+		groupName: '用户输入',
+		components: [QuestionInputConfig],
+	},
+]
