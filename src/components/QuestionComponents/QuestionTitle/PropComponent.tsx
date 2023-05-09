@@ -14,7 +14,7 @@ const PropComponent: FC<QuestionTitlePropsType> = props => {
 
 	return (
 		<Form layout="vertical" initialValues={{ text, level, isCenter }}>
-			<Form.Item label="标题内容" name="title" rules={[{ required: true, message: ' 请输入标题' }]}>
+			<Form.Item label="标题内容" name="text" rules={[{ required: true, message: ' 请输入标题' }]}>
 				<Input />
 			</Form.Item>
 			<Form.Item label="层级" name="level">
