@@ -2,10 +2,14 @@ import React from 'react'
 import type { FC } from 'react'
 import { Button, Tooltip, Space } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
+import { useDispatch } from 'react-redux'
+import { removeSelectedComponent } from '../../../store/componentsReducer/index'
 
 const EditToolbar: FC = () => {
+	const dispatch = useDispatch()
+
 	const handleDelete = () => {
-		console.info('delete')
+		dispatch(removeSelectedComponent())
 	}
 
 	return (
