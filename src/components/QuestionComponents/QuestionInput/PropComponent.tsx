@@ -4,7 +4,7 @@ import { Form, Input } from 'antd'
 import type { QuestionInputPropsType } from './interface'
 
 const PropComponent: FC<QuestionInputPropsType> = props => {
-	const { title, placeholder, onChange } = props
+	const { title, placeholder, onChange, disabled } = props
 	const [form] = Form.useForm()
 
 	useEffect(() => {
@@ -20,6 +20,7 @@ const PropComponent: FC<QuestionInputPropsType> = props => {
 			layout="vertical"
 			initialValues={{ title, placeholder }}
 			onChange={handleValueChange}
+			disabled={disabled}
 		>
 			<Form.Item label="标题内容" name="title" rules={[{ required: true, message: ' 请输入标题' }]}>
 				<Input />
