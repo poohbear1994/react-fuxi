@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { Spin } from 'antd'
 import styles from './EditCanvas.module.scss'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
+import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 import { getComponentConfigByType } from '../../../components/QuestionComponents/index'
 import { changeSelectedId } from '../../../store/componentsReducer'
 import type { ComponentInfoType } from '../../../store/componentsReducer'
@@ -37,6 +38,9 @@ const EditCanvas: FC<PropsType> = props => {
 		event.stopPropagation()
 		dispatch(changeSelectedId(id))
 	}
+
+	// 绑定快捷键
+	useBindCanvasKeyPress()
 
 	if (loading) {
 		return (
