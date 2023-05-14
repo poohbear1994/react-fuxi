@@ -9,8 +9,6 @@ const { Paragraph } = Typography
 const Component: FC<QuestionParagraphPropsType> = props => {
 	const { text = '', isCenter = false } = { ...QuestionParagraphDefaultProps, ...props }
 
-	const t = text.replaceAll('\n', '<br>')
-
 	const textList = text.split('\n')
 
 	return (
