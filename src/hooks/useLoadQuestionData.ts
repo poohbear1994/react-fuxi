@@ -31,7 +31,7 @@ const useLoadQuestionData = () => {
 		if (componentList.length) selectedId = componentList[0].fe_id
 
 		// 把当前问卷的componentList存入redux
-		dispatch(resetComponents({ componentList, selectedId }))
+		dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
 	}, [data])
 
 	// 当id改变的时候，执行ajax 加载问卷数据
