@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 import type { ChangeEvent, FC } from 'react'
-import { Input, message } from 'antd'
+import { Input, message, Button, Space } from 'antd'
 import classNames from 'classnames'
 import { useDispatch } from 'react-redux'
-import { changeSelectedId, changeComponentTitle } from '../../../store/componentsReducer'
+import {
+	changeSelectedId,
+	changeComponentTitle,
+	toggleComponentLock,
+	changeComponentHidden,
+} from '../../../store/componentsReducer'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import styles from './Layers.module.scss'
+import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 
 const Layers: FC = () => {
 	const dispatch = useDispatch()
-	const { selectedId, selectedComponent, componentList } = useGetComponentInfo()
+	const { selectedId, componentList } = useGetComponentInfo()
 
 	const [changingTitleId, setChangingTitleId] = useState('')
 
@@ -31,16 +37,37 @@ const Layers: FC = () => {
 		}
 	}
 
+	/**
+	 * @description: 修改图层标题
+	 * @param {ChangeEvent} event
+	 */
 	const changeTitle = (event: ChangeEvent<HTMLInputElement>) => {
 		const newTitle = event.target.value.trim()
 		if (!newTitle || !selectedId) return
 		dispatch(changeComponentTitle({ fe_id: selectedId, title: newTitle }))
 	}
 
+	/**
+	 * @description: 切换 显示/隐藏
+	 * @param {string} fe_id
+	 * @param {boolean} isHidden
+	 */
+	const changeHidden = (fe_id: string, isHidden: boolean) => {
+		dispatch(changeComponentHidden({ fe_id, isHidden }))
+	}
+
+	/**
+	 * @description: 切换 锁定/解锁
+	 * @param {string} fe_id
+	 */
+	const changeLocked = (fe_id: string) => {
+		dispatch(toggleComponentLock({ fe_id }))
+	}
+
 	return (
 		<>
 			{componentList.map(c => {
-				const { fe_id, isHidden, isLocked, title, props } = c
+				const { fe_id, isHidden, isLocked, title } = c
 
 				const titleDefaultClassName = styles.title
 				const selectedClassName = styles.selected
@@ -71,7 +98,26 @@ const Layers: FC = () => {
 							)}
 							{fe_id !== changingTitleId && title}
 						</div>
-						<div className={styles.handler}>button</div>
+						<div className={styles.handler}>
+							<Space>
+								<Button
+									size="small"
+									className={!isHidden ? styles.btn : ''}
+									shape="circle"
+									icon={<EyeInvisibleOutlined />}
+									type={isHidden ? 'primary' : 'text'}
+									onClick={() => changeHidden(fe_id, !isHidden)}
+								/>
+								<Button
+									size="small"
+									className={!isLocked ? styles.btn : ''}
+									shape="circle"
+									icon={<LockOutlined />}
+									type={isLocked ? 'primary' : 'text'}
+									onClick={() => changeLocked(fe_id)}
+								/>
+							</Space>
+						</div>
 					</div>
 				)
 			})}
