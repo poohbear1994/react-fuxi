@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
 import { useDispatch } from 'react-redux'
 import { resetComponents } from '../store/componentsReducer'
+import { resetPageInfo } from '../store/pageInfoReducer'
 import { getQuestionService } from '../services/question'
 
 const useLoadQuestionData = () => {
@@ -25,13 +26,15 @@ const useLoadQuestionData = () => {
 	useEffect(() => {
 		if (!data) return
 
-		const { title = '', componentList = [], props } = data
+		const { title = '', desc = '', css = '', js = '', componentList = [] } = data
 
 		let selectedId = ''
 		if (componentList.length) selectedId = componentList[0].fe_id
 
 		// 把当前问卷的componentList存入redux
 		dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
+		// 把当前问卷的pageInfo存入redux中
+		dispatch(resetPageInfo({ title, desc, css, js }))
 	}, [data])
 
 	// 当id改变的时候，执行ajax 加载问卷数据
