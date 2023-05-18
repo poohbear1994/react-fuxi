@@ -1,15 +1,17 @@
-import React from 'react'
-import type { FC } from 'react'
-import { message } from 'antd'
+import React, { useState } from 'react'
+import type { ChangeEvent, FC } from 'react'
+import { Input, message } from 'antd'
 import classNames from 'classnames'
 import { useDispatch } from 'react-redux'
-import { changeSelectedId } from '../../../store/componentsReducer'
+import { changeSelectedId, changeComponentTitle } from '../../../store/componentsReducer'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import styles from './Layers.module.scss'
 
 const Layers: FC = () => {
 	const dispatch = useDispatch()
 	const { selectedId, selectedComponent, componentList } = useGetComponentInfo()
+
+	const [changingTitleId, setChangingTitleId] = useState('')
 
 	/**
 	 * @description: 点击标题选中组件
@@ -23,7 +25,16 @@ const Layers: FC = () => {
 		}
 		if (fe_id !== selectedId) {
 			dispatch(changeSelectedId(fe_id))
+			setChangingTitleId('')
+		} else {
+			setChangingTitleId(selectedId)
 		}
+	}
+
+	const changeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+		const newTitle = event.target.value.trim()
+		if (!newTitle || !selectedId) return
+		dispatch(changeComponentTitle({ fe_id: selectedId, title: newTitle }))
 	}
 
 	return (
@@ -46,7 +57,19 @@ const Layers: FC = () => {
 								handleTitleClick(fe_id)
 							}}
 						>
-							{title}
+							{fe_id === changingTitleId && (
+								<Input
+									value={title}
+									onChange={changeTitle}
+									onPressEnter={() => {
+										setChangingTitleId('')
+									}}
+									onBlur={() => {
+										setChangingTitleId('')
+									}}
+								/>
+							)}
+							{fe_id !== changingTitleId && title}
 						</div>
 						<div className={styles.handler}>button</div>
 					</div>
