@@ -49,6 +49,34 @@ const SaveButton: FC = () => {
 	)
 }
 
+// 发布
+const PublishButton: FC = () => {
+	const nav = useNavigate()
+	const { id } = useParams()
+	const { componentList } = useGetComponentInfo()
+	const pageInfo = useGetPageInfo()
+
+	const { loading, run: publish } = useRequest(
+		async () => {
+			if (!id) return
+			await updateQuestionService(id, { ...pageInfo, componentList, isPublished: true })
+		},
+		{
+			manual: true,
+			onSuccess() {
+				message.success('发布成功, 跳转到统计页面')
+				nav('/question/stat/' + id)
+			},
+		}
+	)
+
+	return (
+		<Button type="primary" loading={loading} onClick={publish}>
+			发布
+		</Button>
+	)
+}
+
 // 显示和修改标题
 const TitleElem: FC = () => {
 	const dispatch = useDispatch()
@@ -117,7 +145,7 @@ const EditHeader: FC = () => {
 				<div className={styles.right}>
 					<Space>
 						<SaveButton />
-						<Button type="primary">发布</Button>
+						<PublishButton />
 					</Space>
 				</div>
 			</div>
