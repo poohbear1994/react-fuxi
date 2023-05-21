@@ -1,15 +1,49 @@
 import React, { useState } from 'react'
 import type { ChangeEvent, FC } from 'react'
-import { Button, Typography, Space, Input } from 'antd'
+import { Button, Typography, Space, Input, message } from 'antd'
 import { LeftOutlined, EditOutlined } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { useRequest, useKeyPress } from 'ahooks'
 import EditToolbar from './EditToolbar'
 import styles from './EditHeader.module.scss'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { changePageTitle } from '../../../store/pageInfoReducer'
+import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
+import { updateQuestionService } from '../../../services/question'
 
 const { Title } = Typography
+
+// 保存
+const SaveButton: FC = () => {
+	const { id } = useParams()
+	const { componentList } = useGetComponentInfo()
+	const pageInfo = useGetPageInfo()
+
+	const { loading, run: save } = useRequest(
+		async () => {
+			if (!id) return
+			await updateQuestionService(id, { ...pageInfo, componentList })
+		},
+		{
+			manual: true,
+			onSuccess() {
+				message.success('更新成功')
+			},
+		}
+	)
+
+	useKeyPress(['ctrl.s', 'meta.s'], (event: KeyboardEvent) => {
+		event.preventDefault()
+		if (!loading) save()
+	})
+
+	return (
+		<Button onClick={save} loading={loading}>
+			保存
+		</Button>
+	)
+}
 
 // 显示和修改标题
 const TitleElem: FC = () => {
@@ -78,7 +112,7 @@ const EditHeader: FC = () => {
 				</div>
 				<div className={styles.right}>
 					<Space>
-						<Button>保存</Button>
+						<SaveButton />
 						<Button type="primary">发布</Button>
 					</Space>
 				</div>
