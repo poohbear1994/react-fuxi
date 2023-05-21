@@ -4,7 +4,7 @@ import { Button, Typography, Space, Input, message } from 'antd'
 import { LeftOutlined, EditOutlined } from '@ant-design/icons'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useRequest, useKeyPress } from 'ahooks'
+import { useRequest, useKeyPress, useDebounceEffect } from 'ahooks'
 import EditToolbar from './EditToolbar'
 import styles from './EditHeader.module.scss'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
@@ -33,10 +33,14 @@ const SaveButton: FC = () => {
 		}
 	)
 
+	// 保存快捷键操作
 	useKeyPress(['ctrl.s', 'meta.s'], (event: KeyboardEvent) => {
 		event.preventDefault()
 		if (!loading) save()
 	})
+
+	// 自动保存
+	useDebounceEffect(save, [componentList, pageInfo], { wait: 1000 })
 
 	return (
 		<Button onClick={save} loading={loading}>
