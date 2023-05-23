@@ -16,6 +16,7 @@ const isActiceElementValid = () => {
 
 	// 光标没有focus到input，我们就可以删除组件
 	if (activeElem === document.body) return true
+	if (activeElem?.matches("div[role='button']")) return true
 
 	return false
 }
