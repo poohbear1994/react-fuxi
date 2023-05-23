@@ -7,8 +7,10 @@ import styles from './EditCanvas.module.scss'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 import { getComponentConfigByType } from '../../../components/QuestionComponents/index'
-import { changeSelectedId } from '../../../store/componentsReducer'
+import { changeSelectedId, moveComponent } from '../../../store/componentsReducer'
 import type { ComponentInfoType } from '../../../store/componentsReducer'
+import SortableContainer from '../../../components/DragSortable/SortableContainer'
+import SortableItem from '../../../components/DragSortable/SortableItem'
 
 type PropsType = {
 	loading: boolean
@@ -50,8 +52,19 @@ const EditCanvas: FC<PropsType> = props => {
 		)
 	}
 
+	const componentListWithId = componentList.map(c => {
+		return {
+			...c,
+			id: c.fe_id,
+		}
+	})
+
+	const handleDragEnd = (oldIndex: number, newIndex: number) => {
+		dispatch(moveComponent({ oldIndex, newIndex }))
+	}
+
 	return (
-		<>
+		<SortableContainer items={componentListWithId} onDragEnd={handleDragEnd}>
 			<div className={styles.canvas}>
 				{componentList
 					.filter(c => !c.isHidden)
@@ -69,13 +82,15 @@ const EditCanvas: FC<PropsType> = props => {
 						})
 
 						return (
-							<div className={wrapperClassName} key={fe_id} onClick={e => handleClick(e, fe_id)}>
-								<div className={styles.component}>{genComponent(c)}</div>
-							</div>
+							<SortableItem key={fe_id} id={fe_id}>
+								<div className={wrapperClassName} onClick={e => handleClick(e, fe_id)}>
+									<div className={styles.component}>{genComponent(c)}</div>
+								</div>
+							</SortableItem>
 						)
 					})}
 			</div>
-		</>
+		</SortableContainer>
 	)
 }
 

@@ -33,7 +33,6 @@ const SortableContainer: FC<PropsType> = props => {
 
 	return (
 		<>
-			<h2>DndKitDemo</h2>
 			<DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
 				<SortableContext items={items} strategy={verticalListSortingStrategy}>
 					{children}

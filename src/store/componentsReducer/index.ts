@@ -4,6 +4,7 @@
 import produce from 'immer'
 import { createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { arrayMove } from '@dnd-kit/sortable'
 import type { ComponentPropsType } from '../../components/QuestionComponents'
 import { getNextSelectedId, insertNewComponent } from './utils'
 import cloneDeep from 'lodash.clonedeep'
@@ -152,6 +153,18 @@ export const componentsSlice = createSlice({
 				if (curComp) curComp.title = title
 			}
 		),
+
+		// 移动组件位置
+		moveComponent: produce(
+			(
+				draft: ComponentsStateType,
+				action: PayloadAction<{ oldIndex: number; newIndex: number }>
+			) => {
+				const { componentList: curComponentList } = draft
+				const { oldIndex, newIndex } = action.payload
+				draft.componentList = arrayMove(curComponentList, oldIndex, newIndex)
+			}
+		),
 	},
 })
 export const {
@@ -167,6 +180,7 @@ export const {
 	selectPrevComponent,
 	selectNextComponent,
 	changeComponentTitle,
+	moveComponent,
 } = componentsSlice.actions
 
 export default componentsSlice.reducer
