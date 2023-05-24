@@ -5,9 +5,9 @@ import produce from 'immer'
 import { createSlice, nanoid } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { arrayMove } from '@dnd-kit/sortable'
+import cloneDeep from 'lodash.clonedeep'
 import type { ComponentPropsType } from '../../components/QuestionComponents'
 import { getNextSelectedId, insertNewComponent } from './utils'
-import cloneDeep from 'lodash.clonedeep'
 
 export type ComponentInfoType = {
 	fe_id: string
