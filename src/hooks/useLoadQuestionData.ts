@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { resetComponents } from '../store/componentsReducer'
 import { resetPageInfo } from '../store/pageInfoReducer'
 import { getQuestionService } from '../services/question'
+import { ActionCreators as UndoActionCreators } from 'redux-undo'
 
 const useLoadQuestionData = () => {
 	const dispatch = useDispatch()
@@ -35,6 +36,7 @@ const useLoadQuestionData = () => {
 		dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
 		// 把当前问卷的pageInfo存入redux中
 		dispatch(resetPageInfo({ title, desc, css, js }))
+		dispatch(UndoActionCreators.clearHistory())
 	}, [data])
 
 	// 当id改变的时候，执行ajax 加载问卷数据

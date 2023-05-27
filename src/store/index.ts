@@ -21,11 +21,12 @@ export default configureStore({
 		components: undoable(componentsReducer, {
 			limit: 20,
 			filter: excludeAction([
-				'components/resetComponent',
+				'components/resetComponents',
 				'components/changeSelectedId',
 				'components/selectNextComponent',
 				'components/selectPrevComponent',
 			]),
+			// syncFilter: true,
 		}),
 		// 页面信息
 		pageInfo: pageInfoReducer,
