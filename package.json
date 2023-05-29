@@ -32,9 +32,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:react": "craco start",
+    "dev:server": "cd ../wenjuan-mock && npm run dev",
     "test": "craco test",
+    "build": "craco build",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.+(js|ts|jsx|tsx)'",
     "format": "prettier --write 'src/**/*.+(js|ts|jsx|tsx)'",
@@ -72,6 +74,7 @@
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "mockjs": "^1.1.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.8.7"
   }
 }
