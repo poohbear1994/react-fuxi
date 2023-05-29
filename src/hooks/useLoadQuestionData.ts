@@ -27,7 +27,14 @@ const useLoadQuestionData = () => {
 	useEffect(() => {
 		if (!data) return
 
-		const { title = '', desc = '', css = '', js = '', componentList = [] } = data
+		const {
+			title = '',
+			desc = '',
+			css = '',
+			js = '',
+			isPublished = false,
+			componentList = [],
+		} = data
 
 		let selectedId = ''
 		if (componentList.length) selectedId = componentList[0].fe_id
@@ -35,7 +42,7 @@ const useLoadQuestionData = () => {
 		// 把当前问卷的componentList存入redux
 		dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
 		// 把当前问卷的pageInfo存入redux中
-		dispatch(resetPageInfo({ title, desc, css, js }))
+		dispatch(resetPageInfo({ title, desc, css, js, isPublished }))
 		dispatch(UndoActionCreators.clearHistory())
 	}, [data])
 
