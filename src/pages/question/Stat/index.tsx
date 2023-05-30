@@ -5,6 +5,7 @@ import { useTitle } from 'ahooks'
 import styles from './index.module.scss'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
+import StatHeader from './StatHeader'
 
 const Stat: FC = () => {
 	const nav = useNavigate()
@@ -52,7 +53,7 @@ const Stat: FC = () => {
 
 	return (
 		<div className={styles.container}>
-			<div>header</div>
+			<StatHeader />
 			<div className={styles['content-wrap']}>
 				{loading && LoadingElem}
 				{!loading && <div className={styles.content}>{genContentElem()}</div>}
