@@ -13,7 +13,6 @@ const Component: FC<QuestionCheckboxPropsType> = props => {
 			<Paragraph strong>{title}</Paragraph>
 			<Space direction={isVertical ? 'vertical' : 'horizontal'}>
 				{list.map(opt => {
-					console.table(props.list)
 					const { value, text, checked } = opt
 					return (
 						<Checkbox value={value} key={value} checked={checked}>

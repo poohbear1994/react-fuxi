@@ -47,7 +47,6 @@ const PageStat: FC<PropsType> = props => {
 					<Spin />
 				</div>
 			)}
-			{list.toString()}
 		</div>
 	)
 }
