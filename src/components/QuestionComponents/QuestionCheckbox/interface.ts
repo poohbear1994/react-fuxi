@@ -14,6 +14,11 @@ export type QuestionCheckboxPropsType = {
 	disabled?: boolean
 }
 
+// 统计组件的属性类型
+export type QuestionCheckboxStatPropsType = {
+	stat: Array<{ name: string; count: number }>
+}
+
 export const QuestionCheckboxDefaultProps: QuestionCheckboxPropsType = {
 	title: '多选标题',
 	isVertical: false,

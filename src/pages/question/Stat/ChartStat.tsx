@@ -3,8 +3,7 @@ import type { FC } from 'react'
 import { Typography } from 'antd'
 import { useRequest } from 'ahooks'
 import { useParams } from 'react-router-dom'
-import PieDemo from './PieDemo'
-import BarDemo from './BarDemo'
+import { getComponentConfigByType } from '../../../components/QuestionComponents'
 import { getComponentStatService } from '../../../services/stat'
 
 const { Title } = Typography
@@ -39,8 +38,9 @@ const ChartStat: FC<PropsType> = props => {
 
 	const getStatElem = () => {
 		if (!selectedComponentId) return <div>未选中组件</div>
-
-		return <div>{JSON.stringify(stat)}</div>
+		const { StatComponent } = getComponentConfigByType(selectedComponentType) || {}
+		if (StatComponent == null) return <div>该组件无统计图表</div>
+		if (StatComponent) return <StatComponent stat={stat} />
 	}
 
 	return (
