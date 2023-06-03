@@ -12,3 +12,17 @@ export const getQuestionStatListService = async (
 	const data = (await axios.get(url, { params: opt })) as ResDataType
 	return data
 }
+
+/**
+ * @description: 获取组件的统计数据
+ * @param {string} questionId
+ * @param {string} componentId
+ */
+export const getComponentStatService = async (
+	questionId: string,
+	componentId: string
+): Promise<ResDataType> => {
+	const url = `/api/stat/${questionId}/${componentId}`
+	const data = (await axios.get(url)) as ResDataType
+	return data
+}

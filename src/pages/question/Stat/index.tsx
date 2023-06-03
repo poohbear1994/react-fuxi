@@ -70,7 +70,7 @@ const Stat: FC = () => {
 				<div className={styles.right}>
 					<ChartStat
 						selectedComponentId={selectedComponentId}
-						selectedCOmponentType={selectedComponentType}
+						selectedComponentType={selectedComponentType}
 					/>
 				</div>
 			</>
