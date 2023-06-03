@@ -1,11 +1,25 @@
 import type { FC } from 'react'
-import QuestionInputConfig, { QuestionInputPropsType } from './QuestionInput'
-import QuestionTitleConfig, { QuestionTitlePropsType } from './QuestionTitle'
-import QuestionParagraphConfig, { QuestionParagraphPropsType } from './QuestionParagraph'
-import QuestionInfoConfig, { QuestionInfoPropsType } from './QuestionInfo'
-import QuestionTextareaConfig, { QuestionTextareaPropsType } from './QuestionTextarea'
-import QuestionRadioConfig, { QuestionRadioPropsType } from './QuestionRadio'
-import QuestionCheckboxConfig, { QuestionCheckboxPropsType } from './QuestionCheckbox'
+
+import QuestionInputConfig from './QuestionInput'
+import type { QuestionInputPropsType } from './QuestionInput'
+
+import QuestionTitleConfig from './QuestionTitle'
+import type { QuestionTitlePropsType } from './QuestionTitle'
+
+import QuestionParagraphConfig from './QuestionParagraph'
+import type { QuestionParagraphPropsType } from './QuestionParagraph'
+
+import QuestionInfoConfig from './QuestionInfo'
+import type { QuestionInfoPropsType } from './QuestionInfo'
+
+import QuestionTextareaConfig from './QuestionTextarea'
+import type { QuestionTextareaPropsType } from './QuestionTextarea'
+
+import QuestionRadioConfig from './QuestionRadio'
+import type { QuestionRadioPropsType, QuestionRadioStatPropsType } from './QuestionRadio'
+
+import QuestionCheckboxConfig from './QuestionCheckbox'
+import type { QuestionCheckboxPropsType } from './QuestionCheckbox'
 
 // 输出各个组件的 prop type
 export type ComponentPropsType = QuestionInputPropsType &
@@ -16,6 +30,9 @@ export type ComponentPropsType = QuestionInputPropsType &
 	QuestionRadioPropsType &
 	QuestionCheckboxPropsType
 
+// 输出各个组件的 统计组件的 prop type
+export type StatComponentPropsType = QuestionRadioStatPropsType
+
 // 统一，组件的配置
 export type ComponentConfigType = {
 	title: string
@@ -23,6 +40,7 @@ export type ComponentConfigType = {
 	Component: FC<ComponentPropsType>
 	defaultProps: ComponentPropsType
 	PropComponent: FC<ComponentPropsType>
+	StatComponent?: FC<StatComponentPropsType>
 }
 
 // 全部组件配置的列表

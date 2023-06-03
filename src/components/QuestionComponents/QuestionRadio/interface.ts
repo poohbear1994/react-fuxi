@@ -14,6 +14,11 @@ export type QuestionRadioPropsType = {
 	disabled?: boolean
 }
 
+// 统计组件的属性类型
+export type QuestionRadioStatPropsType = {
+	stat: Array<{ name: string; count: number }>
+}
+
 export const QuestionRadioDefaultProps: QuestionRadioPropsType = {
 	title: '单选标题',
 	isVertical: false,
