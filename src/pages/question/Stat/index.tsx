@@ -9,6 +9,7 @@ import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import StatHeader from './StatHeader'
 import ComponentList from './ComponentList'
 import PageStat from './PageStat'
+import ChartStat from './ChartStat'
 
 const Stat: FC = () => {
 	const nav = useNavigate()
@@ -66,7 +67,12 @@ const Stat: FC = () => {
 						setSelectedComponentType={setSelectedComponentType}
 					/>
 				</div>
-				<div className={styles.right}>右</div>
+				<div className={styles.right}>
+					<ChartStat
+						selectedComponentId={selectedComponentId}
+						selectedCOmponentType={selectedComponentType}
+					/>
+				</div>
 			</>
 		)
 	}
