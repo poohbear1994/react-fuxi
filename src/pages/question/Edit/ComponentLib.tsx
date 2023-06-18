@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import type { FC, MouseEvent } from 'react'
 import { Typography } from 'antd'
 import { useDispatch } from 'react-redux'
@@ -15,7 +15,7 @@ const genComponent = (c: ComponentConfigType) => {
 	const dispatch = useDispatch()
 	const { Component, title, type, defaultProps } = c
 
-	const handleClick = (event: MouseEvent) => {
+	const handleClick = useCallback((event: MouseEvent) => {
 		event.stopPropagation()
 		const component: ComponentInfoType = {
 			fe_id: nanoid(5),
@@ -24,7 +24,18 @@ const genComponent = (c: ComponentConfigType) => {
 			type,
 		}
 		dispatch(addComponent(component))
-	}
+	}, [])
+
+	// const handleClick = (event: MouseEvent) => {
+	// 	event.stopPropagation()
+	// 	const component: ComponentInfoType = {
+	// 		fe_id: nanoid(5),
+	// 		title,
+	// 		props: defaultProps,
+	// 		type,
+	// 	}
+	// 	dispatch(addComponent(component))
+	// }
 
 	return (
 		<div key={type} className={styles.wrapper} onClick={handleClick}>
