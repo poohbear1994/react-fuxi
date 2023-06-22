@@ -39,7 +39,7 @@
     "dev:react": "craco start",
     "dev:server": "cd ../wenjuan-mock && npm run dev",
     "dev:client": "cd ../wenjuan-client && npm run dev",
-    "test": "craco test",
+    "test": "craco test --watchAll=false",
     "build": "craco build",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.+(js|ts|jsx|tsx)'",
