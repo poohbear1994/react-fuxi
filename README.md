@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# 简介
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+这是一个基于React18函数式组件 + TS + Redux的Rect hook复习项目，主要完成的是一个低代码编辑器的基本操作 + 闭环
 
-## Available Scripts
+## 页面的整体大概如下
 
-In the project directory, you can run:
+- 我的问卷页
+![我的问卷]('https://github.com/poohbear1994/react-fuxi/tree/master/readme-img/myQuestion.jpg')
 
-### `npm start`
+- 编辑器
+![编辑器]('https://github.com/poohbear1994/react-fuxi/tree/master/readme-img/myQuestion.jpg')
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 统计
+![统计]('https://github.com/poohbear1994/react-fuxi/tree/master/readme-img/myQuestion.jpg')
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- 回收站
+![回收站]('https://github.com/poohbear1994/react-fuxi/tree/master/readme-img/myQuestion.jpg')
 
-### `npm test`
+## 编辑器完成的功能
+组件库、图层、画布、页面设置、组件属性设置5个部分。
+支持页面设置、图层设置、拖拽、隐藏/显示、锁定/解锁、赋值/粘贴、上移、下移、撤销、回退等功能。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 抽成8个hook
+1. 快捷键绑定book
+2. 从redux获取选定组件数据
+3. 从redux获取页面设置数据
+4. 从redux获取用户信息数据
+5. 网络加载问卷详情数据
+6. 网络加载问卷列表数据
+7. 网络记载用户信息数据
+8. 页面导航
 
-### `npm run build`
+## 难点-组件库数据结构设计
+```js
+- 单个组件文件夹
+    | - 组件本体
+    | - 组件的属性设置组件
+    | - 组件的统计组件
+    | - 组件的数据接口
+    | - 组件单元测试
+    | - 组件入口文件
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+最后使用一个文件集成所有组件，方便拓展的同时，提供外界引用入口
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 运行
+如果需要运行该项目，还需要配合(后端接口模拟项目)[https://github.com/poohbear1994/wenjuan-mock]
