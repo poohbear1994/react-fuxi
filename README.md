@@ -5,16 +5,15 @@
 ## 页面的整体大概如下
 
 - 我的问卷页
-![我的问卷]('https://github.com/poohbear1994/react-fuxi/tree/master/readme-img/myQuestion.jpg')
-
+<img alt="我的问卷" src="https://raw.githubusercontent.com/poohbear1994/react-fuxi/master/readme-img/myQuestion.jpg"></img>
 - 编辑器
-![编辑器]('https://github.com/poohbear1994/react-fuxi/tree/master/readme-img/myQuestion.jpg')
+<img alt="编辑器" src="https://raw.githubusercontent.com/poohbear1994/react-fuxi/master/readme-img/editor.jpg"></img>
 
 - 统计
-![统计]('https://github.com/poohbear1994/react-fuxi/tree/master/readme-img/myQuestion.jpg')
+<img alt="统计" src="https://raw.githubusercontent.com/poohbear1994/react-fuxi/master/readme-img/stat.jpg"></img>
 
 - 回收站
-![回收站]('https://github.com/poohbear1994/react-fuxi/tree/master/readme-img/myQuestion.jpg')
+<img alt="回收站" src="https://raw.githubusercontent.com/poohbear1994/react-fuxi/master/readme-img/trash.jpg"></img>
 
 ## 编辑器完成的功能
 组件库、图层、画布、页面设置、组件属性设置5个部分。
