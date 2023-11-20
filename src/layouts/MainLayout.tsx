@@ -14,7 +14,7 @@ const MainLayout: FC = () => {
 	useNavPage(waitingUserData)
 
 	return (
-		<Layout>
+		<Layout style={{ minWidth: '1200px' }}>
 			<Header className={styles.header}>
 				<div className={styles.left}>
 					<Logo />
